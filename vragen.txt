@@ -1,0 +1,52 @@
+{
+    "1. Geef aan bij welke van de volgende opties het beste bij je past": 
+        {
+            {
+                a: "Ik wil uitzoeken hoe ik mens en technologie kan verbinden", 
+                b: "Ik ben nieuwsgierig en zoek graag dingen uit",
+                c: "Ik wil de logica achter grote systemen ontwerpen en programeren"
+                d: "Ik vind het leuk om uit grote hoeveelheid informatie tot een antwoord te komen"
+            }, 
+            {1,2,3,4}
+        },
+    "2. Geef aan bij welke van de volgende opties het beste bij je past": 
+        {
+            {
+                a: "Ik houd van puzzelen", 
+                b: "ik vind AI interesant", 
+                c: "ik houd van onderzoeken", 
+                d: "Ik ben creatief", 
+            }, 
+            {1,2,3,4}
+        },
+    "3. Geef aan bij welke van de volgende opties het beste bij je past": 
+        {
+            {
+                a: "Ik ben een teamleider", 
+                b: "Ik ben iemand die een plan maakt voordat ik iets uitvoer", 
+                c: "Ik vind het leuk p, informatie te analyseren", 
+                d: "Ik wil dingen automatiseren", 
+            }, 
+            {1,2,3,4}
+        },
+    "4. Geef aan bij welke van de volgende opties het beste bij je past": 
+        {
+            {
+                a: "Ik ben iemand die een taak verdeeld op basis van persoon", 
+                b: "Ik houd van plannen, organiseren en het creeren van structuur", 
+                c: "Ik denk over wat iemand zou aantrekken aan mijn applicatie", 
+                d: "Ik vind een opspuering leuk", 
+            }, 
+            {1,2,3,4}
+        },
+    "5. Geef aan bij welke van de volgende opties het beste bij je past": 
+        {
+            {
+                a: "", 
+                b: "", 
+                c: "", 
+                d: "", 
+            }, 
+            {1,2,3,4}
+        },
+}
