@@ -1,3 +1,5 @@
+
+
 {
     "1. Geef aan bij welke van de volgende opties het beste bij je past": 
         {
@@ -49,4 +51,17 @@
             }, 
             {1,2,3,4}
         },
+     "6. "Geef aan welke je het interessantst vind.":
+     {
+        {
+            a: "Het oplossen van problemen."
+                {IAT:2,FICT:3,SE:3,BDAM:2} 
+            b: "Hoe een AI leert."
+                {IAT:1,FICT:1,SE:1,BDAM:3}
+            c: "Hoe je illegaal gedrag opspoort.
+                {IAT:1 ,FICT:3,SE:1,BDAM:1}
+            d: "Hoe een mens een applicatie begrijpt."
+                {IAT:3,FICT:3,SE:1,BDAM:1}
+            
+            
 }
