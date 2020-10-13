@@ -12,8 +12,6 @@
 # 3. SE. 
 # 4. BDAM. 
 
- 
-
 # Je stelt een vraag over bijvoorbeeld Analyseren. En kiest antwoord 1: IAT. 
  
 # Bij de antwoorden horen 5 kenmerken. 
