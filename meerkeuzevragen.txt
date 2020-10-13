@@ -1,0 +1,6 @@
+{
+    "1.Ben je iemand die analytisch kijkt naar een probleem?": 
+        {1: "Ja", 2: "Nee"},
+    "2.Hou je van planning, organisatie en het creëren van structuur?": {1: "Ja", 2: "Nee"},
+    "3.Hou je van Puzzelen?": {1: "Ja", 2: "Nee"}
+}
