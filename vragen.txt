@@ -1,11 +1,20 @@
-{'software': 
-    [
-        {'Analyseren': 3},
-        {'Adviseren': 2},
-        {'Ontwerpen: 1'},
-        {'Realiseren': 1},
-        {'Manage & Control': 3}
-    ]
+{
+    'Software': 
+        [
+            {'Analyseren': 3},
+            {'Adviseren': 2},
+            {'Ontwerpen: 1'},
+            {'Realiseren': 1},
+            {'Manage & Control': 3}
+        ],
+    'Infrastructuur':
+        [
+            {'Analyseren': 2},
+            {'Adviseren': 1},
+            {'Ontwerpen: 3'},
+            {'Realiseren': 2},
+            {'Manage & Control': 1}
+        ]
 }
 
 {
