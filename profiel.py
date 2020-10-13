@@ -21,7 +21,7 @@
 # 3. Infrastructuur. 
 # 4. Software. 
 # 5. Hardware interfacing. 
-{
+profiel = {
     {
     'IAT':[
         'Software': 
