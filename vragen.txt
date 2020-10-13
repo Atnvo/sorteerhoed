@@ -1,4 +1,12 @@
-
+{'software': 
+    [
+        {'Analyseren': 3},
+        {'Adviseren': 2},
+        {'Ontwerpen: 1'},
+        {'Realiseren': 1},
+        {'Manage & Control': 3}
+    ]
+}
 
 {
     "1. Geef aan bij welke van de volgende opties het beste bij je past": 
