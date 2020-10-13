@@ -1,1 +1,1 @@
-{'1.Ben je iemand die analytisch kijkt naar een probleem?': '2', '2.Hou je van planning, organisatie en het creëren van structuur?': '1', '3.Hou je van Puzzelen?': '2'}
+{'1.Geef aan bij welke van de volgende opties het beste bij je past': '2', '2.Hou je van planning, organisatie en het creëren van structuur?': '1', '3.Hou je van Puzzelen?': '2'}

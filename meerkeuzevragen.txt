@@ -1,10 +1,12 @@
 {
     "1.Geef aan bij welke van de volgende opties het beste bij je past": 
-        { 1: "Ik wil uitzoeken hoe ik mens en technologie kan verbinden", 
-          2: "Ik ben nieuwsgierig en zoek graag dingen uit.",
-          3: "Ik wil de logica achter grote systemen ontwerpen en programeren." ,
-          4: "Ik vind het leuk om uit grote hoeveelheid informatie tot een antwoord te komen."}
-
+        { 
+            1: "Ik wil uitzoeken hoe ik mens en technologie kan verbinden", 
+            2: "Ik ben nieuwsgierig en zoek graag dingen uit.",
+            3: "Ik wil de logica achter grote systemen ontwerpen en programeren." ,
+            4: "Ik vind het leuk om uit grote hoeveelheid informatie tot een antwoord te komen."
+        }
+    ,
     "2.Hou je van planning, organisatie en het creëren van structuur?": {1: "Ja", 2: "Nee"},
     "3.Hou je van Puzzelen?": {1: "Ja", 2: "Nee"}
 }
