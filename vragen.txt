@@ -3,7 +3,7 @@
         [
             {'Analyseren': 3},
             {'Adviseren': 2},
-            {'Ontwerpen: 1'},
+            {'Ontwerpen': {'key': 'value'} },
             {'Realiseren': 1},
             {'Manage & Control': 3}
         ],
