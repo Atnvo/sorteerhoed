@@ -1,5 +1,6 @@
 {
-    {'IAT':[
+    {
+    'IAT':[
         'Software': 
             [
                 {'Analyseren': 3},
@@ -83,7 +84,6 @@
                 {'Realiseren': 2},
                 {'Manage & Control': 1}
             ]
-        
         ]
     }
 }
