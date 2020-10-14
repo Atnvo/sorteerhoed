@@ -3,6 +3,7 @@ import ast
 def main():
     while True:
         try:
+            print()
             x = input("MENU Selecteer een keuze \nq: quit\n1: vragenlijst \n2: laatste uitslag tonen\nkeuze: ")
             if (x == 'q'): 
                 exit()
@@ -10,8 +11,8 @@ def main():
                 vraag_en_antwoord(vragen_ophalen())
             if (x == '2'):  
                 toon_resultaten()
-        except (ValueError, FileNotFoundError):
-            print("Oops! Bestand niet gevonden.  Probeer opnieuw...")
+        except (ValueError):
+            print("Oops! selectie niet gevonden.  Probeer opnieuw...")
 
 def vragen_ophalen():                                           #haal de vragen op uit de tekst bestand 
     with open('meerkeuzevragen.txt', 'r') as file:              #Open de text bestand
