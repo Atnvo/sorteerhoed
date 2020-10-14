@@ -1,9 +1,7 @@
 import ast
 
 def main():
-    while True:
-        try:
-            print("""\
+    print("""\
                 
   _    _                                           _    _              
  | |  | |                                         | |  | |             
@@ -21,6 +19,10 @@ def main():
 INF1V                                                                       
 
                 """)
+    True
+    while True:
+        try:
+            print('\n')
             x = input("MENU Selecteer een keuze \nq: quit\n1: vragenlijst \n2: laatste uitslag tonen\nkeuze: ")
             if (x == 'q'): 
                 exit()
@@ -41,6 +43,7 @@ def vragen_ophalen():                                           #haal de vragen 
 def vraag_en_antwoord(data_type):
     ingevoerde_antwoord = {}
     for key, value in data_type.items():
+        print('\n')
         print(str(key))                                         #print de vraag
         for nummer, x in value.items():                         #loop door de nummer en antwoord
             print(' '+ str(nummer) + ": " + str(x))             #print de nummer en antwoord optie
