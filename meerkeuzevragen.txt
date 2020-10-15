@@ -7,15 +7,15 @@
             4: "Ik vind het leuk om uit grote hoeveelheid informatie tot een antwoord te komen."
         }
     ,
-    "2.Geef aan bij welke van de volgende opties het beste bij je past":
-       {
+    "2.Geef aan bij welke van de volgende opties het beste bij je past":       
+        {
                 1: "Ik houd van puzzelen", 
                 2: "Ik vind AI interesant", 
                 3: "Ik houd van onderzoeken", 
                 4: "Ik ben creatief"
         }
    ,
-   "3.Geef aan bij welke van de volgende opties het beste bij je past": 
+   "3.Geef aan bij welke van de volgende opties het beste bij je past: 
         {
                 1: "Ik ben een teamleider.", 
                 2: "Ik ben iemand die een plan maakt voordat ik iets uitvoer.", 
