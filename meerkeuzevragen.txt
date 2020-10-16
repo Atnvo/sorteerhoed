@@ -1,5 +1,5 @@
 {
-    "1.Geef aan bij welke van de volgende opties het beste bij je past": 
+    "1.Geef aan bij welke van de volgende opties het beste bij je past":
         { 
             1: "Ik wil uitzoeken hoe ik mens en technologie kan verbinden", 
             2: "Ik ben nieuwsgierig en zoek graag dingen uit.",
