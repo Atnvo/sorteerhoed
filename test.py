@@ -7,7 +7,7 @@ black = 1, 1, 2
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("assets/harry_fly.png")
+ball = pygame.image.load("assets/images/harry_fly.png")
 ballrect = ball.get_rect()
 
 while 1:
