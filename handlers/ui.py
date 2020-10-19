@@ -24,7 +24,8 @@ class Button:
 
     def draw(self, pos, screen, font):
 
-        button_color = (211, 211, 211) if self.rect.collidepoint(pos) else self.color
+        button_color = (246,185,20) if self.rect.collidepoint(pos) else self.color
+        self.rect.inflate_ip(-10,-12) if self.rect.collidepoint(pos) else self.rect
         pygame.draw.rect(screen, button_color, self.rect)
 
         text_width, text_height = self.courier_button_font.size(self.text)
@@ -33,4 +34,4 @@ class Button:
         buttontext.draw(screen)
 
     def isOver(self, pos):
-        return self.rect.collidepoint(pos)
+        return self.rect.collidepoint(pos)  
