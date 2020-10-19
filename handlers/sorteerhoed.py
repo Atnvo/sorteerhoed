@@ -1,44 +1,15 @@
-import ast
+import pandas as pd
 
 def main():
-    print("""\
-                
-  _    _                                           _    _              
- | |  | |                                         | |  | |             
- | |__| |  __ _  _ __  _ __  _   _   _ __    ___  | |_ | |_  ___  _ __ 
- |  __  | / _` || '__|| '__|| | | | | '_ \  / _ \ | __|| __|/ _ \| '__|
- | |  | || (_| || |   | |   | |_| | | |_) || (_) || |_ | |_|  __/| |   
- |_|  |_| \__,_||_|   |_|    \__, | | .__/  \___/  \__| \__|\___||_|   
-   _____               _      __/ | | |      _                       _ 
-  / ____|             | |    |___/  |_|     | |                     | |
- | (___    ___   _ __ | |_  ___   ___  _ __ | |__    ___    ___   __| |
-  \___ \  / _ \ | '__|| __|/ _ \ / _ \| '__|| '_ \  / _ \  / _ \ / _` |
-  ____) || (_) || |   | |_|  __/|  __/| |   | | | || (_) ||  __/| (_| |
- |_____/  \___/ |_|    \__|\___| \___||_|   |_| |_| \___/  \___| \__,_|
-                                                                       
-INF1V                                                                       
-
-                """)
-    True
-    while True:
-        try:
-            print('\n')
-            x = input("MENU Selecteer een keuze \nq: quit\n1: vragenlijst \n2: laatste uitslag tonen\nkeuze: ")
-            if (x == 'q'): 
-                exit()
-            if (x == '1'):
-                vraag_en_antwoord(vragen_ophalen())
-            if (x == '2'):  
-                toon_resultaten()
-        except (ValueError):
-            print("Oops! selectie niet gevonden.  Probeer opnieuw...")
+    print('ttt')
 
 def vragen_ophalen():                                           #haal de vragen op uit de tekst bestand 
-    with open('meerkeuzevragen.txt', 'r') as file:              #Open de text bestand
-        contents = file.read()                                  #sla de daqta op in een variable
-        data = ast.literal_eval(contents)                       #zet de data om in een dictionary
-        file.close()                                            #sluit de file
-    return data                                                 #stuur de data terug
+    vragenlijst = pd.read_excel("assets/vragenlijst.xlsx")
+    pd.set_option("display.max_columns", None)
+    pd.set_option("display.width", None)
+    pd.set_option("display.max_rows", None)
+    df_2 = pd.DataFrame(vragenlijst)
+    return vragenlijst                                                 #stuur de data terug
 
 def vraag_en_antwoord(data_type):
     ingevoerde_antwoord = {}

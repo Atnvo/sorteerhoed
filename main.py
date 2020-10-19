@@ -1,11 +1,11 @@
 import pygame
 import handlers.ui as ui    #Importeer user interacties functies van een andere file
-# import handlers.sqllite_db as db
+import handlers.sorteerhoed as sorteerhoed
 
-screen = pygame.display.set_mode((1490, 800))
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen_w, screen_h = pygame.display.get_surface().get_size()
 mainClock = pygame.time.Clock()
-
-lichtgeel = (246,185,20)
+vragenlijst = sorteerhoed.vragen_ophalen()
 
 def main():
     pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
@@ -14,7 +14,7 @@ def main():
     pygame.display.set_icon(pygame.image.load("assets/images/icon.png"))
 
     done = False
-    
+
     # Music
     pygame.mixer.init()
     pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
@@ -23,7 +23,7 @@ def main():
     # Logo imagew
     title_image = pygame.image.load("assets/images/logo.png")
     title_image_rect = title_image.get_rect()
-    title_image_rect.x, title_image_rect.y = 300, 20
+    title_image_rect.x, title_image_rect.y = screen_w // 4, 20
 
     # Fonts / text
     font_title = pygame.font.Font("assets/fonts/harry.ttf", 140)
@@ -34,9 +34,10 @@ def main():
     while not done:
         pygame.event.wait()
         
-        screen.fill((255, 255, 255))
+        screen.fill((39, 39, 54))
+        pygame.draw.rect(screen, (39, 39, 36), (0, screen_h-150, screen_w, 150))
         mouse_position = pygame.mouse.get_pos()
-        
+
         speel_knop = ui.Button((0, 179, 60), 550, 400, 320, 70, "Speel", 20)
         speel_knop.draw(mouse_position, screen, font_button)
 
@@ -60,6 +61,7 @@ def main():
                 menu_vraag()
             if quit_knop.isOver(mouse_position):
                 done = True
+                
         screen.blit(title_image, title_image_rect)
         
         pygame.display.update()
@@ -68,7 +70,10 @@ def main():
 def menu_vraag():
     running = True
     while running:
-        screen.fill((0, 0, 0))
+        screen.fill((39, 40, 34))
+
+        font_button = pygame.font.Font("assets/fonts/pixel2.ttf", 20)
+        mouse_position = pygame.mouse.get_pos()
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -76,8 +81,25 @@ def menu_vraag():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 running = False
 
+        mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 100, 50, "Menu", 20)
+        mainmenu_knop.draw(mouse_position, screen, font_button)
+
+        if pygame.mouse.get_pressed()[0]:
+            if mainmenu_knop.isOver(mouse_position):
+                running = False
+                main()
+
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 80), False, 'Vraag 1.', (221, 211, 147), 600, 50)
-        text.draw(screen)    
+        text.draw(screen)   
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, 'Geef aan welke van de volgende opties het beste bij he past', (221, 211, 147), 400, 200)
+        text.draw(screen) 
+
+        selectie_knop = ui.Button((0, 179, 60), 400, 250, 40, 50, 'A', 30)
+        selectie_knop.draw(mouse_position, screen, font_button)
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, "Ik houd van puzzelen", (221, 211, 147), 450, 250)
+        text.draw(screen)  
 
         pygame.display.update()
         mainClock.tick(60)
