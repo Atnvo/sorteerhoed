@@ -34,4 +34,5 @@ class Button:
         buttontext.draw(screen)
 
     def isOver(self, pos):
-        return self.rect.collidepoint(pos)  
+        return self.rect.collidepoint(pos)
+         

@@ -46,23 +46,20 @@ def main():
         quit_knop = ui.Button((249, 44, 44), 550, 600, 320, 70, "Quit", 20)
         quit_knop.draw(mouse_position, screen, font_button)
 
-        click = pygame.mouse.get_pressed()[0]
-
+        # Key listerners
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # print(event.button)
-                print('ttttt')
-                if speel_knop.isOver(mouse_position):
-                    done = True
-                    menu_vraag()
-                if quit_knop.isOver(mouse_position):
-                    print('test')
-                    done = True
 
+        # Menu button click events
+        if pygame.mouse.get_pressed()[0]:
+            if speel_knop.isOver(mouse_position):
+                done = True
+                menu_vraag()
+            if quit_knop.isOver(mouse_position):
+                done = True
         screen.blit(title_image, title_image_rect)
         
         pygame.display.update()
