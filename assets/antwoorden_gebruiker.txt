@@ -1,1 +1,0 @@
-{'1.Geef aan bij welke van de volgende opties het beste bij je past': '2', '2.Geef aan bij welke van de volgende opties het beste bij je past': '3', '3.Geef aan bij welke van de volgende opties het beste bij je past': '4'}

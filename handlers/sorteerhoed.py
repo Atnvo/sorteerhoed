@@ -11,6 +11,11 @@ def vragen_ophalen():                                           #haal de vragen 
     df_2 = pd.DataFrame(vragenlijst)
     return vragenlijst                                                 #stuur de data terug
 
+def resultaten_ophalen(user_name):                                    #haal de vragen op uit de tekst bestand 
+    test_obj = {'specialisatie': 'SE', 'naam': 'Naam'}
+    return test_obj
+    # return antwoorden    
+
 def vraag_en_antwoord(data_type):
     ingevoerde_antwoord = {}
     for key, value in data_type.items():
