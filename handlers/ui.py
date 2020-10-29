@@ -213,13 +213,13 @@ class TextInput:
         self.cursor_position = 0
 
 def vraag_component(vraag, buttons):
-    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2, 200)
+    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2 - 250, 200)
     text.draw(screen)
 
     height = 400
     btn_names = []
-    for button in buttons:
-        btn = Button((249, 44, 44), 400, 250, 50, 50, 'A', screen_w // 2 -300, height)
+    for count, button in enumerate(buttons):
+        btn = Button((74,111,40), screen_w // 2 -350, height, 50, 50, str(count), 25, 0)
         btn.draw(mouse, screen, btn_font)
 
         text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 300, height)

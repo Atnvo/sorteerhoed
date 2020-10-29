@@ -141,6 +141,8 @@ def toon_resultaten(username):
         mainClock.tick(60)
 
 def menu_vraag(username):
+    count = 0
+
     running = True
     for count, vraag in enumerate(vragenlijst):
         while running:
@@ -153,32 +155,27 @@ def menu_vraag(username):
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     running = False
 
+            btns = ui.vraag_component(vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
+
+            if pygame.mouse.get_pressed()[0]:
+                for btn in btns:
+                    if btn.isOver(pygame.mouse.get_pos()):
+                        count = count + 1
+                        menu_vraag
+                        print(f'knop is over {btn} | {count}')
+
             # Menu knoppen
             mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
             mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20)))
-
-            index = 0
-            btns = toon_vraag(index)
                 
             if pygame.mouse.get_pressed()[0]:
-                for btn in btns:
-                    if btn.isOver(mouse_position):
-                        screen.fill((39, 40, 34))
-                        index = index + 1
-                        toon_vraag(index)
                 if mainmenu_knop.isOver(mouse_position):
                     running = False
                     menu(username)
 
             pygame.display.update()
             mainClock.tick(30)
-
-def toon_vraag(count):
-    btns = [ [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count] ]
-    return ui.vraag_component(vragenlijst['vraag'][count], btns)
-
-
-
+                
 if __name__ == '__main__':
     main()
 
