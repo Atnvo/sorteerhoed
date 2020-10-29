@@ -220,12 +220,12 @@ def vraag_component(vraag, buttons):
     btn_names = []
     for button in buttons:
         btn = Button((249, 44, 44), 400, 250, 50, 50, 'A', screen_w // 2 -300, height)
-        # btn.draw(mouse, screen, btn_font)
+        btn.draw(mouse, screen, btn_font)
 
         text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 300, height)
         text.draw(screen)   
 
         height = height + 75
         btn_names.append(btn)
-
+        
     return btn_names
