@@ -170,3 +170,6 @@ def menu_vraag(username):
 if __name__ == '__main__':
     main()
 
+
+
+print("Dit is een verandering!")
