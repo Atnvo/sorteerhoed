@@ -2,6 +2,12 @@ import pygame
 import pygame.locals as pl
 import os
 
+pygame.font.init()
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen_w, screen_h = pygame.display.get_surface().get_size()
+mouse = pygame.mouse.get_pos()
+btn_font = pygame.font.Font("assets/fonts/pixel2.ttf", 10)
+
 class Text:
     def __init__(self, font, antialias, text, color, x, y):
         self.font = font
@@ -39,7 +45,7 @@ class Button:
 
     def isOver(self, pos):
         return self.rect.collidepoint(pos)
-         
+
 class TextInput:
     """
     This class lets the user input a piece of text, e.g. a name or a message.
@@ -55,9 +61,8 @@ class TextInput:
             text_color=(255, 255, 255),
             cursor_color=(0, 0, 1),
             repeat_keys_initial_ms=400,
-            repeat_keys_interval_ms=350,
-            max_string_length= -1,
-            password=False):
+            repeat_keys_interval_ms=35,
+            max_string_length=-1):
         """
         :param initial_string: Initial text to be displayed
         :param font_family: name or list of names for font (see pygame.font.match_font for precise format)
@@ -75,7 +80,6 @@ class TextInput:
         self.text_color = text_color
         self.font_size = font_size
         self.max_string_length = max_string_length
-        self.password = password
         self.input_string = initial_string  # Inputted text
 
         if not os.path.isfile(font_family):
@@ -109,8 +113,7 @@ class TextInput:
 
                 # If none exist, create counter for that key:
                 if event.key not in self.keyrepeat_counters:
-                    if not event.key == pl.K_RETURN: # Filters out return key, others can be added as necessary
-                        self.keyrepeat_counters[event.key] = [0, event.unicode]
+                    self.keyrepeat_counters[event.key] = [0, event.unicode]
 
                 if event.key == pl.K_BACKSPACE:
                     self.input_string = (
@@ -172,10 +175,7 @@ class TextInput:
                 pygame.event.post(pygame.event.Event(pl.KEYDOWN, key=event_key, unicode=event_unicode))
 
         # Re-render text surface:
-        string = self.input_string
-        if self.password:
-            string = "*" * len(self.input_string)
-        self.surface = self.font_object.render(string, self.antialias, self.text_color)
+        self.surface = self.font_object.render(self.input_string, self.antialias, self.text_color)
 
         # Update self.cursor_visible
         self.cursor_ms_counter += self.clock.get_time()
@@ -211,4 +211,19 @@ class TextInput:
     def clear_text(self):
         self.input_string = ""
         self.cursor_position = 0
-        
+
+def vraag_component(vraag, ant1, ant2, ant3, ant4):
+    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2, 200)
+    text.draw(screen)
+
+    btn1 = Button((0, 179, 60), 400, 250, 50, 50, ant1, screen_w // 2 -200, 100)
+    btn1.draw(mouse, screen, btn_font)
+
+    btn2 = Button((0, 179, 60), 400, 250, 50, 50, ant2, screen_w // 2 -200, 200)
+    btn2.draw(mouse, screen, btn_font)
+
+    btn3 = Button((0, 179, 60), 400, 250, 50, 50, ant3, screen_w // 2 -200, 300)
+    btn3.draw(mouse, screen, btn_font)
+
+    btn4 = Button((0, 179, 60), 400, 250, 50, 50, ant4, screen_w // 2 -200, 400)
+    btn4.draw(mouse, screen, btn_font)

@@ -9,10 +9,11 @@ def vragen_ophalen():                                           #haal de vragen 
     pd.set_option("display.width", None)
     pd.set_option("display.max_rows", None)
     df_2 = pd.DataFrame(vragenlijst)
-    return vragenlijst                                                 #stuur de data terug
+    return vragenlijst
+    
 
 def resultaten_ophalen(user_name):                                    #haal de vragen op uit de tekst bestand 
-    test_obj = {'specialisatie': 'SE', 'naam': 'Naam'}
+    test_obj = {'specialisatie': 'FICT', 'naam': 'Naam'}
     return test_obj
     # return antwoorden    
 
@@ -37,7 +38,9 @@ def toon_resultaten():                                          #Toon de resulta
     with open('antwoorden_gebruiker.txt', 'r') as file:         #Open de text bestand
         contents = file.read()                                  #Lees de inhoud en sla het in een variable op   
         file.close()                                            #sluit de file
-    print(str(contents))                                        #print de resultaat nqar de console
+    print(str(contents))    
+    
+                            #print de resultaat nqar de console
 
 if __name__ == "__main__":
     main()
