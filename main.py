@@ -4,6 +4,7 @@ import handlers.sorteerhoed as sorteerhoed
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_w, screen_h = pygame.display.get_surface().get_size()
+print(screen_h, screen_w)
 mainClock = pygame.time.Clock()
 vragenlijst = sorteerhoed.vragen_ophalen()
 
@@ -152,14 +153,17 @@ def menu_vraag(username):
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     running = False
 
-            mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 50, 40, "X", 20, 0)
-            mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+            # Menu knoppen
+            mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
+            mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20))
 
-            print(vragenlijst['ant1'][count])
+            # print(vragenlijst['ant1'][count])
 
-            ui.vraag_component(vragenlijst['vraag'][count], vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count])
-
+            btns = ui.vraag_component(vragenlijst['vraag'][count], [ [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count] ])
+                
             if pygame.mouse.get_pressed()[0]:
+                if btns[0].isOver(mouse_position):
+                    print('btn sucess')
                 if mainmenu_knop.isOver(mouse_position):
                     running = False
                     menu(username)

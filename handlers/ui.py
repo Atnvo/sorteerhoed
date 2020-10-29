@@ -212,18 +212,20 @@ class TextInput:
         self.input_string = ""
         self.cursor_position = 0
 
-def vraag_component(vraag, ant1, ant2, ant3, ant4):
+def vraag_component(vraag, buttons):
     text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2, 200)
     text.draw(screen)
 
-    btn1 = Button((0, 179, 60), 400, 250, 50, 50, ant1, screen_w // 2 -200, 100)
-    btn1.draw(mouse, screen, btn_font)
+    height = 400
+    btn_names = []
+    for button in buttons:
+        btn = Button((249, 44, 44), 400, 250, 50, 50, 'A', screen_w // 2 -300, height)
+        # btn.draw(mouse, screen, btn_font)
 
-    btn2 = Button((0, 179, 60), 400, 250, 50, 50, ant2, screen_w // 2 -200, 200)
-    btn2.draw(mouse, screen, btn_font)
+        text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 300, height)
+        text.draw(screen)   
 
-    btn3 = Button((0, 179, 60), 400, 250, 50, 50, ant3, screen_w // 2 -200, 300)
-    btn3.draw(mouse, screen, btn_font)
+        height = height + 75
+        btn_names.append(btn)
 
-    btn4 = Button((0, 179, 60), 400, 250, 50, 50, ant4, screen_w // 2 -200, 400)
-    btn4.draw(mouse, screen, btn_font)
+    return btn_names
