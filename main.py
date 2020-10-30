@@ -59,7 +59,7 @@ def main():
         text.draw(screen)  
         screen.blit(textinput.get_surface(), (screen_w // 2 -100, 300))
 
-        pygame.display.update()
+        pygame.display.flip()
         mainClock.tick(30)
 
 def menu(username):
@@ -98,15 +98,15 @@ def menu(username):
             if quit_knop.isOver(mouse_position):
                 main_menu = True
 
-        pygame.display.update()
+        pygame.display.flip()
         mainClock.tick(60)
 
 # Pagina om de resultaten te bekijken
 def toon_resultaten(username):
     resultaten = sorteerhoed.resultaten_ophalen(username)
 
-    running = True
-    while running:
+    toon_resultaten = True
+    while toon_resultaten:
         screen.fill((39, 40, 34))
 
         spec_image_badge = "assets/images/" + resultaten['specialisatie'] + '.png'
@@ -117,32 +117,30 @@ def toon_resultaten(username):
         text = ui.Text(pygame.font.Font("assets/fonts/fantasy.ttf", 80), False, username, (221, 211, 147), screen_w // 2 - 125, 400)
         text.draw(screen)  
 
-        font_button = pygame.font.Font("assets/fonts/pixel2.ttf", 20)
         mouse_position = pygame.mouse.get_pos()
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                toon_resultaten = False
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                running = False
+                toon_resultaten = False
 
         # Menu knoppen
         mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
-        mainmenu_knop.draw(mouse_position, screen, font_button)
+        mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
 
         if pygame.mouse.get_pressed()[0]:
             if mainmenu_knop.isOver(mouse_position):
-                running = False
+                toon_resultaten = False
                 menu(username)
                 
         screen.blit(spec_image, spec_image_rect)
 
-        pygame.display.update()
+        pygame.display.flip()
         mainClock.tick(60)
 
 def menu_vraag(username):
-    count = 0
-
+    count = 1
     running = True
     for count, vraag in enumerate(vragenlijst):
         while running:
@@ -155,27 +153,73 @@ def menu_vraag(username):
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     running = False
 
-            btns = ui.vraag_component(vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
-
+            btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
+            # btns = ui.vraag_component(vragenlijst['vraag'][count], ( [vragenlijst['ant1'][count], 'spec1'], [vragenlijst['ant2'][count], 'spec2'], [vragenlijst['ant3'][count], 'spec3'], [vragenlijst['ant4'][count], 'spec4']) )
             if pygame.mouse.get_pressed()[0]:
                 for btn in btns:
                     if btn.isOver(pygame.mouse.get_pos()):
-                        count = count + 1
-                        menu_vraag
-                        print(f'knop is over {btn} | {count}')
+                        count += 1
+                        pygame.event.wait()
+                        print(btn.get_spec())
+                        # TODO: Tel punten op basis van antwoord
+
+            if count == 12:
+                eind_vraag(username)
 
             # Menu knoppen
             mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
             mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20)))
-                
+
+            vraag_nr = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, str(count)+" / 12" , (221, 211, 147), screen_w // 2 - 350, 150)
+            vraag_nr.draw(screen)
+
             if pygame.mouse.get_pressed()[0]:
                 if mainmenu_knop.isOver(mouse_position):
                     running = False
                     menu(username)
 
-            pygame.display.update()
-            mainClock.tick(30)
+            pygame.display.flip()
+            mainClock.tick(60)
+
+def eind_vraag(username):
+    eind_vraag = True
+    while eind_vraag:
+        screen.fill((39, 40, 34))
+
+        text = ui.Text(pygame.font.Font("assets/fonts/fantasy.ttf", 80), False, 'Einde Quiz', (221, 211, 147), screen_w // 2 - 200, 400)
+        text.draw(screen)  
+
+        mouse_position = pygame.mouse.get_pos()
+
+        sorting_hat = pygame.image.load("assets/images/Sorting_hat.png")
+        sorting_hat_rect = sorting_hat.get_rect()
+        sorting_hat_rect.x, sorting_hat_rect.y = screen_w // 2 - sorting_hat_rect.width // 2, 100
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                eind_vraag = False
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                eind_vraag = False
+
+        # Menu knoppen
+        mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
+        mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
+        resultaten_knop = ui.Button((0, 204, 0), screen_w // 2 - 200, 575, 320, 70, "Bekijk mijn resultaten", 20)
+        resultaten_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
+        if pygame.mouse.get_pressed()[0]:
+            if mainmenu_knop.isOver(mouse_position):
+                eind_vraag = False
+                menu(username)
+            if resultaten_knop.isOver(mouse_position):
+                eind_vraag = False
+                toon_resultaten(username)
+
+        screen.blit(sorting_hat, sorting_hat_rect)
+
+        pygame.display.flip()
+        mainClock.tick(60)
                 
 if __name__ == '__main__':
     main()
-
