@@ -8,13 +8,14 @@ print(screen_h, screen_w)
 mainClock = pygame.time.Clock()
 vragenlijst = sorteerhoed.vragen_ophalen()
 
+# Begin scherm waar de gebruiker zijn naam kan invullen en het spel starten
 def main():
-    pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
+    pygame.mixer.pre_init(44100, -16, 2, 2048) 
     pygame.init() 
     textinput = ui.TextInput('Naam: ')
     done = False
     pygame.display.set_caption("Sorteerhoed")
-    pygame.display.set_icon(pygame.image.load("assets/images/icon.png"))
+    pygame.display.set_icon(pygame.image.load("assets/images/Sorting_hat.png"))
 
     # Music
     pygame.mixer.init()
@@ -24,6 +25,7 @@ def main():
     # Fonts / text
     font_button = pygame.font.Font("assets/fonts/pixel2.ttf", 20)
 
+    # Pygame moet altijd in een loop zitten
     while not done:
         screen.fill((39, 39, 36))
         events = pygame.event.get()
@@ -139,8 +141,9 @@ def toon_resultaten(username):
         pygame.display.flip()
         mainClock.tick(60)
 
+# Vragen loop
 def menu_vraag(username):
-    count = 1
+    count = 0
     running = True
     for count, vraag in enumerate(vragenlijst):
         while running:
@@ -153,24 +156,29 @@ def menu_vraag(username):
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     running = False
 
-            btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
-            # btns = ui.vraag_component(vragenlijst['vraag'][count], ( [vragenlijst['ant1'][count], 'spec1'], [vragenlijst['ant2'][count], 'spec2'], [vragenlijst['ant3'][count], 'spec3'], [vragenlijst['ant4'][count], 'spec4']) )
+            # btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
+            btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]],
+            [ vragenlijst['spec_ant1'][count], vragenlijst['spec_ant2'][count], vragenlijst['spec_ant3'][count], vragenlijst['spec_ant4'][count] ])
+
             if pygame.mouse.get_pressed()[0]:
-                for btn in btns:
+                for i, btn in enumerate(btns):
                     if btn.isOver(pygame.mouse.get_pos()):
                         count += 1
                         pygame.event.wait()
-                        print(btn.get_spec())
+                        punten = list(btn.get_spec()[i].replace(',', ''))
+                        print(punten)
+                        # Punt volgorde = IAT, FICT, SE, BDaM
                         # TODO: Tel punten op basis van antwoord
 
             if count == 12:
+                running = False
                 eind_vraag(username)
 
             # Menu knoppen
             mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
             mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20)))
-
-            vraag_nr = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, str(count)+" / 12" , (221, 211, 147), screen_w // 2 - 350, 150)
+            counter = str(count+1) + " / 12" 
+            vraag_nr = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, counter , (225, 225, 225), screen_w // 2 - 650, 250)
             vraag_nr.draw(screen)
 
             if pygame.mouse.get_pressed()[0]:
@@ -181,6 +189,7 @@ def menu_vraag(username):
             pygame.display.flip()
             mainClock.tick(60)
 
+# de pagina na het einde van de quiz.
 def eind_vraag(username):
     eind_vraag = True
     while eind_vraag:
@@ -191,7 +200,7 @@ def eind_vraag(username):
 
         mouse_position = pygame.mouse.get_pos()
 
-        sorting_hat = pygame.image.load("assets/images/Sorting_hat.png")
+        sorting_hat = pygame.image.load("assets/images/Sorting_hat.gif")
         sorting_hat_rect = sorting_hat.get_rect()
         sorting_hat_rect.x, sorting_hat_rect.y = screen_w // 2 - sorting_hat_rect.width // 2, 100
         

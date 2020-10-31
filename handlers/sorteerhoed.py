@@ -17,6 +17,5 @@ def resultaten_ophalen(user_name):                                    #haal de v
 def main():
     print('sorteerhoed')
 
-
 if __name__ == "__main__":
     main()
