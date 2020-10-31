@@ -1,6 +1,7 @@
 import pygame
 import handlers.ui as ui    #Importeer user interacties functies van een andere file
 import handlers.sorteerhoed as sorteerhoed
+import handlers.grafiek as grafiek
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_w, screen_h = pygame.display.get_surface().get_size()
@@ -95,9 +96,6 @@ def menu(username):
         quit_knop = ui.Button((249, 44, 44), screen_w // 2 - 200, 600, 320, 70, "Quit", 20, 0)
         quit_knop.draw(mouse_position, screen, font_button)
 
-        
-
-
         # Key listerners
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -161,10 +159,6 @@ def HoeWerktHet():
 
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False,'Gemaakt door: INFV1', (255, 255, 255), screen_w // 2 - 800, 1000)
         text.draw(screen) 
-
-
-
-
 
         pygame.display.flip()
         mainClock.tick(30)
@@ -240,10 +234,16 @@ def toon_resultaten(username):
         mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
         mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
 
+        grafiek_knop = ui.Button((249, 44, 44), 200, 200, 150, 35, "Zie grafiek", 20, 0)
+        grafiek_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
         if pygame.mouse.get_pressed()[0]:
             if mainmenu_knop.isOver(mouse_position):
                 toon_resultaten = False
                 menu(username)
+            if grafiek_knop.isOver(mouse_position):
+                toon_resultaten = False
+                grafiek.pi()
                 
         screen.blit(spec_image, spec_image_rect)
 
