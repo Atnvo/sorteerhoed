@@ -50,6 +50,25 @@ class Button:
     def isOver(self, pos):
         return self.rect.collidepoint(pos)
 
+def vraag_component(vraag, buttons, punten):
+    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2 - 650, 200)
+    text.draw(screen)
+
+    height = 400
+    btn_names = []
+
+    for count, button in enumerate(buttons):
+        btn = Button((74,111,40), screen_w // 2 -650, height, 50, 50, str(count + 1), 25, 0, punten)
+        btn.draw(mouse, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
+        text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 550, height)
+        text.draw(screen)   
+
+        height = height + 75
+        btn_names.append(btn)
+        
+    return btn_names
+
 class TextInput:
     """
     This class lets the user input a piece of text, e.g. a name or a message.
@@ -215,22 +234,3 @@ class TextInput:
     def clear_text(self):
         self.input_string = ""
         self.cursor_position = 0
-
-def vraag_component(vraag, buttons):
-    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2 - 350, 200)
-    text.draw(screen)
-
-    height = 400
-    btn_names = []
-
-    for count, button in enumerate(buttons):
-        btn = Button((74,111,40), screen_w // 2 -500, height, 50, 50, str(count), 25, 0, 'test')
-        btn.draw(mouse, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
-
-        text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 350, height)
-        text.draw(screen)   
-
-        height = height + 75
-        btn_names.append(btn)
-        
-    return btn_names
