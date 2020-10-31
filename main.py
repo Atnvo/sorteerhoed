@@ -1,6 +1,7 @@
 import pygame
 import handlers.ui as ui    #Importeer user interacties functies van een andere file
 import handlers.sorteerhoed as sorteerhoed
+import handlers.grafiek as grafiek
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_w, screen_h = pygame.display.get_surface().get_size()
@@ -18,9 +19,9 @@ def main():
     pygame.display.set_icon(pygame.image.load("assets/images/Sorting_hat.png"))
 
     # Music
-    pygame.mixer.init()
-    pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
-    pygame.mixer.music.play(-1)
+##    pygame.mixer.init()
+##    pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
+##    pygame.mixer.music.play(-1)
 
     # Fonts / text
     font_button = pygame.font.Font("assets/fonts/pixel2.ttf", 20)
@@ -37,6 +38,13 @@ def main():
 
         quit_knop = ui.Button((249, 44, 44), screen_w // 2 - 200, 500, 320, 70, "Stop", 20, 0)
         quit_knop.draw(mouse, screen, font_button)
+
+        help_knop = ui.Button((0, 0, 0), screen_w // 2 - 200, 600, 320, 70, "Instructies", 20, 0)
+        help_knop.draw(mouse, screen, font_button)
+
+        hoe_werkt_het_knop = ui.Button((0, 0, 0), screen_w // 2 - 200, 700, 320, 70, "Applicatie Informatie", 20, 0)
+        hoe_werkt_het_knop.draw(mouse, screen, font_button)
+
 
         # Key listerners
         for event in events:
@@ -55,6 +63,12 @@ def main():
             if start_knop.isOver(mouse):
                 menu(ui.TextInput.get_text(textinput).replace('Naam:', ''))
                 done = True
+            if help_knop.isOver(mouse):
+                main_menu = True
+                Instructies()
+            if hoe_werkt_het_knop.isOver(mouse):
+                main_menu = True
+                HoeWerktHet()
                 
         textinput.update(events)
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 80), False, 'Harry potter Sorteerhoed', (221, 211, 147), screen_w // 2 - 550, 220)
@@ -99,9 +113,98 @@ def menu(username):
                 toon_resultaten(username)
             if quit_knop.isOver(mouse_position):
                 main_menu = True
+        
 
         pygame.display.flip()
         mainClock.tick(60)
+
+
+def HoeWerktHet():
+    done = False
+    while not done:
+        screen.fill((39, 39, 36))
+        events = pygame.event.get()
+        mouse_position = pygame.mouse.get_pos()
+ 
+        mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
+        mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20)))
+
+        # Key listerners
+        for event in events:
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                done = True
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                done = True
+                menu(textinput.get_text())
+
+        # Menu button click events
+        if pygame.mouse.get_pressed()[0]:
+            if mainmenu_knop.isOver(mouse_position):
+                done = True
+                main()
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 80), False, 'Applicatie Informatie.', (221, 211, 147), screen_w // 2 - 800, 220)
+        text.draw(screen)  
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '1) Je selecteerd een antwoord.', (255, 255, 255), screen_w // 2 - 800, 500)
+        text.draw(screen) 
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '2) Je antwoord wordt opgelslagen.', (255, 255, 255), screen_w // 2 - 800, 550)
+        text.draw(screen) 
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '3) De antwoorden zijn gerelateerd aan een specialisatie. ', (255, 255, 255), screen_w // 2 - 800, 600)
+        text.draw(screen) 
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '4) Er wordt met een percentage berekent welke specialisatie bij jou past.', (255, 255, 255), screen_w // 2 - 800, 650)
+        text.draw(screen) 
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False,'Gemaakt door: INFV1', (255, 255, 255), screen_w // 2 - 800, 1000)
+        text.draw(screen) 
+
+        pygame.display.flip()
+        mainClock.tick(30)
+
+def Instructies():
+    done = False
+    while not done:
+        screen.fill((39, 39, 36))
+        events = pygame.event.get()
+        mouse_position = pygame.mouse.get_pos()
+ 
+        mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
+        mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20)))
+
+        # Key listerners
+        for event in events:
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                done = True
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                done = True
+                menu(textinput.get_text())
+
+        # Menu button click events
+        if pygame.mouse.get_pressed()[0]:
+            if mainmenu_knop.isOver(mouse_position):
+                done = True
+                main()
+                
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 80), False, 'Instructies', (221, 211, 147), screen_w // 2 - 800, 220)
+        text.draw(screen)  
+
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '1) Je selecteert een antwoord door erop te klikken.  ', (255, 255, 255), screen_w // 2 - 800, 500)
+        text.draw(screen)  
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '2) Om opnieuw te beginnen moet je op "terug" drukken en daarna op "speel".', (255, 255, 255), screen_w // 2 - 800, 550)
+        text.draw(screen)  
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '3) Om het resultaat van de laatste speler te zien druk op "terug" en daarna op "mijn vorige resultaten".', (255, 255, 255), screen_w // 2 - 800, 600)
+        text.draw(screen) 
+        
+        
+               
+
+        pygame.display.flip()
+        mainClock.tick(30)
 
 # Pagina om de resultaten te bekijken
 def toon_resultaten(username):
@@ -131,10 +234,16 @@ def toon_resultaten(username):
         mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
         mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
 
+        grafiek_knop = ui.Button((249, 44, 44), 200, 200, 150, 35, "Zie grafiek", 20, 0)
+        grafiek_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
         if pygame.mouse.get_pressed()[0]:
             if mainmenu_knop.isOver(mouse_position):
                 toon_resultaten = False
                 menu(username)
+            if grafiek_knop.isOver(mouse_position):
+                toon_resultaten = False
+                grafiek.pi()
                 
         screen.blit(spec_image, spec_image_rect)
 
@@ -185,6 +294,7 @@ def menu_vraag(username):
                 if mainmenu_knop.isOver(mouse_position):
                     running = False
                     menu(username)
+                
 
             pygame.display.flip()
             mainClock.tick(60)

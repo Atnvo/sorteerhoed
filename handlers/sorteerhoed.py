@@ -10,7 +10,7 @@ def vragen_ophalen():                                           #haal de vragen 
     
 
 def resultaten_ophalen(user_name):                                    #haal de vragen op uit de tekst bestand 
-    test_obj = {'specialisatie': 'FICT', 'naam': 'Naam'}
+    test_obj = {'specialisatie': 'SE', 'naam': 'Naam'}
     return test_obj
     # return antwoorden    
 
