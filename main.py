@@ -181,7 +181,6 @@ def Instructies():
                 done = True
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 done = True
-                menu(textinput.get_text())
 
         # Menu button click events
         if pygame.mouse.get_pressed()[0]:
