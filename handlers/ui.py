@@ -21,7 +21,7 @@ class Text:
         win.blit(self.font.render(self.text, self.antialias, (self.color)), (self.x, self.y))
 
 class Button:
-    def __init__(self, color, x, y, width, height, text, fontsize, rounded = 4):
+    def __init__(self, color, x, y, width, height, text, fontsize, rounded = 0, spec_string = ''):
         self.color = color
         self.x = x
         self.y = y
@@ -29,6 +29,7 @@ class Button:
         self.text = text
         self.fontsize = fontsize
         self.rounded = rounded
+        self.spec_string = spec_string
         self.courier_button_font = pygame.font.SysFont("Courier", self.fontsize)
 
     def draw(self, pos, screen, font):
@@ -43,8 +44,30 @@ class Button:
         buttontext = Text(font, True, self.text, (255, 255, 255), textpos[0], textpos[1])
         buttontext.draw(screen)
 
+    def get_spec(self):
+        return self.spec_string
+
     def isOver(self, pos):
         return self.rect.collidepoint(pos)
+
+def vraag_component(vraag, buttons, punten):
+    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2 - 650, 200)
+    text.draw(screen)
+
+    height = 400
+    btn_names = []
+
+    for count, button in enumerate(buttons):
+        btn = Button((74,111,40), screen_w // 2 -650, height, 50, 50, str(count + 1), 25, 0, punten)
+        btn.draw(mouse, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
+        text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 550, height)
+        text.draw(screen)   
+
+        height = height + 75
+        btn_names.append(btn)
+        
+    return btn_names
 
 class TextInput:
     """
@@ -211,21 +234,3 @@ class TextInput:
     def clear_text(self):
         self.input_string = ""
         self.cursor_position = 0
-
-def vraag_component(vraag, buttons):
-    text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, vraag, (221, 211, 147), screen_w // 2 - 250, 200)
-    text.draw(screen)
-
-    height = 400
-    btn_names = []
-    for count, button in enumerate(buttons):
-        btn = Button((74,111,40), screen_w // 2 -350, height, 50, 50, str(count), 25, 0)
-        btn.draw(mouse, screen, btn_font)
-
-        text = Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, button, (221, 211, 147), screen_w // 2 - 300, height)
-        text.draw(screen)   
-
-        height = height + 75
-        btn_names.append(btn)
-        
-    return btn_names
