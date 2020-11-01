@@ -96,6 +96,10 @@ def menu(username):
         quit_knop = ui.Button((249, 44, 44), screen_w // 2 - 200, 600, 320, 70, "Quit", 20, 0)
         quit_knop.draw(mouse_position, screen, font_button)
 
+        mainmenu_knop = ui.Button((255, 255, 255), 700, 150, 80, 35, "Hoe werkt het", 20, 0)
+        mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
+
+
         # Key listerners
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -242,7 +246,7 @@ def toon_resultaten(username):
                 menu(username)
             if grafiek_knop.isOver(mouse_position):
                 toon_resultaten = False
-                grafiek.pi()
+                grafiek.pi(sorteerhoed.resultaten_ophalen(username))
                 
         screen.blit(spec_image, spec_image_rect)
 
@@ -269,30 +273,37 @@ def menu_vraag(username):
             # btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
             btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]],
             [ vragenlijst['spec_ant1'][count], vragenlijst['spec_ant2'][count], vragenlijst['spec_ant3'][count], vragenlijst['spec_ant4'][count] ])
-
+                
             if pygame.mouse.get_pressed()[0]:
                 for i, btn in enumerate(btns):
-                    if btn.isOver(pygame.mouse.get_pos()):
-                        pygame.event.wait()
-                        count += 1
-                        punten = list(btn.get_spec()[i].replace(',', ''))
-                        print(punten)
-                        for i in range(0,4):
-                            teller[i] += int(punten[i])
+                    punten = list(btn.get_spec()[i].replace(',', ''))
+                    for i in range(0,4):
+                        totaal[i] += int(punten[i])
+                        if btn.isOver(pygame.mouse.get_pos()):
+                            count += 1
+                            pygame.event.wait()
+                            punten = list(btn.get_spec()[i].replace(',', ''))
+                            for i in range(0,4):
+                                teller[i] += int(punten[i])
+                            
                         # Punt volgorde = IAT, FICT, SE, BDaM
-                        # TODO: Tel punten op basis van antwoord
+        
 
             if count == 12:
                     #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
                     #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
                     #specialisatie. Dit om te voorkomen dat er in totaal meer punten aan één specialisatie toegekend
                     #worden en de kans dus groter is dat die specialisatie de uitslag is.
+
                 percentage = []
                 for i in range(0,4):
+                    print(teller[i], totaal[i])
                     percentage.append(teller[i] / totaal[i])
                 print("IAT: " + str(percentage[0]) + "FICT: " + str(percentage[1]) + "SE: " + str(percentage[2]) + "BDam: " + str(percentage[3]))
+                # sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3]])
                 running = False
                 eind_vraag(username)
+
 
             # Menu knoppen
             mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
@@ -306,6 +317,9 @@ def menu_vraag(username):
                     running = False
                     menu(username)
                 
+                if mainmenu_knop.isOver(mouse_position):
+                    running = False
+                    menu(username)
 
             pygame.display.flip()
             mainClock.tick(60)
@@ -350,6 +364,8 @@ def eind_vraag(username):
 
         pygame.display.flip()
         mainClock.tick(60)
-                
+            
+
+
 if __name__ == '__main__':
     main()
