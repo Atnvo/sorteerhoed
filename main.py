@@ -283,16 +283,12 @@ def menu_vraag(username):
                             punten = list(btn.get_spec()[i].replace(',', ''))
                             for i in range(0,4):
                                 teller[i] += int(punten[i])
-                            
-                        # Punt volgorde = IAT, FICT, SE, BDaM
         
-
             if count == 12:
                     #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
                     #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
                     #specialisatie. Dit om te voorkomen dat er in totaal meer punten aan één specialisatie toegekend
                     #worden en de kans dus groter is dat die specialisatie de uitslag is.
-
                 percentage = []
                 for i in range(0,4):
                     print(teller[i], totaal[i])
@@ -301,7 +297,6 @@ def menu_vraag(username):
                 # sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3]])
                 running = False
                 eind_vraag(username)
-
 
             # Menu knoppen
             mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
