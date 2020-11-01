@@ -2,6 +2,11 @@ import pandas as pd
 import xlsxwriter
 import numpy as np
 
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", None)
+pd.set_option("display.max_rows", None)
+df = pd.DataFrame(pd.read_excel("assets/resultaten.xlsx"))
+
 def vragen_ophalen():                                           #haal de vragen op uit de tekst bestand 
     vragenlijst = pd.read_excel("assets/vragenlijst.xlsx")
     pd.set_option("display.max_columns", None)
@@ -11,16 +16,14 @@ def vragen_ophalen():                                           #haal de vragen 
     return vragenlijst
     
 def resultaten_opslaan(data):
-    # data = [username, procent_iat, procent_se, procent_fict, procent_bdam]
-    with xlsxwriter.Workbook("uitkomst.xlsx") as uitkomst:
-        worksheet = uitkomst.add_worksheet()
+    new_df = df.append({"naam": str(data[0]),
+                        "iat": str(data[1]),
+                        "fict": str(data[2]),
+                        "se": str(data[3]),
+                        "bdam": str(data[4])},
+                        ignore_index = True)
 
-        for row, col in enumerate(data): 
-            worksheet.write_row(row,0,data)
-            worksheet.write_row(0,1,"IAT") #,"FICT","SE","BDaM"
-            worksheet.write_row(1,1,"FICT")
-            worksheet.write_row(2,1,"SE")
-            worksheet.write_row(3,1,"BDAM")
+    new_df.to_excel("assets/resultaten.xlsx", index=False)
 
 def resultaten_ophalen(user_name):                                    #haal de vragen op uit de tekst bestand 
     test_obj = {'specialisatie'}
