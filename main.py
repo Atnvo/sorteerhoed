@@ -191,7 +191,6 @@ def Instructies():
             if mainmenu_knop.isOver(mouse_position):
                 done = True
                 main()
-                
 
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 80), False, 'Instructies', (221, 211, 147), screen_w // 2 - 800, 220)
         text.draw(screen)  
@@ -203,9 +202,6 @@ def Instructies():
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '3) Om het resultaat van de laatste speler te zien druk op "terug" en daarna op "mijn vorige resultaten".', (255, 255, 255), screen_w // 2 - 800, 600)
         text.draw(screen) 
         
-        
-               
-
         pygame.display.flip()
         mainClock.tick(30)
 
@@ -217,7 +213,7 @@ def toon_resultaten(username):
     while toon_resultaten:
         screen.fill((39, 40, 34))
 
-        spec_image_badge = "assets/images/" + resultaten['specialisatie'] + '.png'
+        spec_image_badge = "assets/images/se.png"
         spec_image = pygame.image.load(spec_image_badge)
         spec_image_rect = spec_image.get_rect()
         spec_image_rect.x, spec_image_rect.y = screen_w // 2 - spec_image_rect.width // 2, 100
@@ -258,7 +254,10 @@ def menu_vraag(username):
     count = 0
     running = True
     teller = [0, 0, 0, 0]
-    totaal = [0, 0, 0, 0]
+    teller2 = [0, 0, 0, 0]
+    totaal = [0, 0, 0, 0] 
+    totaal2 = [0, 0, 0, 0]
+    
     for count, vraag in enumerate(vragenlijst):
         while running:
             screen.fill((39, 40, 34))
@@ -268,6 +267,7 @@ def menu_vraag(username):
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+
                     running = False
 
             # btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
@@ -279,39 +279,42 @@ def menu_vraag(username):
                     punten = list(btn.get_spec()[i].replace(',', ''))
                     for i in range(0,4):
                         totaal[i] += int(punten[i])
-                        
+                        if int(punten[i]) == 3:
+                            totaal2[i] += 1
                     if btn.isOver(pygame.mouse.get_pos()):
-                        count += 1
                         pygame.event.wait()
-                        punten = list(btn.get_spec()[i].replace(',', ''))
+                        count += 1
                         for i in range(0,4):
                             teller[i] += int(punten[i])
-    
-            if count == 12:
-                    #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
-                    #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
-                    #specialisatie. Dit om te voorkomen dat er in totaal meer punten aan één specialisatie toegekend
-                    #worden en de kans dus groter is dat die specialisatie de uitslag is.
+                            teller2[i] += 1
+
+            
+            #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
+            #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
+            #specialisatie. Dit om te voorkomen dat er in totaal meer punten aan één specialisatie toegekend
+            #worden en de kans dus groter is dat die specialisatie de uitslag is.
+            if count == 16:
                 percentage = []
+                percentage2 = []
                 for i in range(0,4):
-                    percentage.append(teller[i] / totaal[i])
+                    percentage.append(teller[i] / totaal[i] * 100)
+                    percentage2.append(teller2[i] / 16 * 100)
                 print("IAT: " + str(percentage[0]) + "FICT: " + str(percentage[1]) + "SE: " + str(percentage[2]) + "BDam: " + str(percentage[3]))
+                sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3]])
                 running = False
                 eind_vraag(username)
 
             # Menu knoppen
             mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
             mainmenu_knop.draw(mouse_position, screen, (pygame.font.Font("assets/fonts/lunchds.ttf", 20)))
-            counter = str(count+1) + " / 12" 
+            counter = str(count+1) + " / 16" 
             vraag_nr = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 20), False, counter , (225, 225, 225), screen_w // 2 - 650, 250)
             vraag_nr.draw(screen)
 
             if pygame.mouse.get_pressed()[0]:
                 if mainmenu_knop.isOver(mouse_position):
-                    running = False
-                    menu(username)
-                
-                if mainmenu_knop.isOver(mouse_position):
+                    state = [username, count]
+                    sla_op(state)
                     running = False
                     menu(username)
 
