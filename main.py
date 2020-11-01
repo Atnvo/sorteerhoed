@@ -199,8 +199,6 @@ def Instructies():
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '3) Om het resultaat van de laatste speler te zien druk op "terug" en daarna op "mijn vorige resultaten".', (255, 255, 255), screen_w // 2 - 800, 600)
         text.draw(screen) 
         
-        
-               
 
         pygame.display.flip()
         mainClock.tick(30)
@@ -242,7 +240,7 @@ def toon_resultaten(username):
                 menu(username)
             if grafiek_knop.isOver(mouse_position):
                 toon_resultaten = False
-                grafiek.pi()
+                grafiek.radar()
                 
         screen.blit(spec_image, spec_image_rect)
 
@@ -276,11 +274,8 @@ def menu_vraag(username):
                         pygame.event.wait()
                         count += 1
                         punten = list(btn.get_spec()[i].replace(',', ''))
-                        print(punten)
                         for i in range(0,4):
                             teller[i] += int(punten[i])
-                        # Punt volgorde = IAT, FICT, SE, BDaM
-                        # TODO: Tel punten op basis van antwoord
 
             if count == 12:
                     #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
@@ -289,8 +284,11 @@ def menu_vraag(username):
                     #worden en de kans dus groter is dat die specialisatie de uitslag is.
                 percentage = []
                 for i in range(0,4):
-                    percentage.append(teller[i] / totaal[i])
+                    while teller[i] != 0 and totaal[i] != 0:
+                        percentage.append(teller[i] / totaal[i])
                 print("IAT: " + str(percentage[0]) + "FICT: " + str(percentage[1]) + "SE: " + str(percentage[2]) + "BDam: " + str(percentage[3]))
+
+                sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3]])
                 running = False
                 eind_vraag(username)
 

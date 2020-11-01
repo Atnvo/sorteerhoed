@@ -8,6 +8,9 @@ def vragen_ophalen():                                           #haal de vragen 
     df_2 = pd.DataFrame(vragenlijst)
     return vragenlijst
     
+def resultaten_opslaan(resultaten):
+    print(resultaten)
+
 
 def resultaten_ophalen(user_name):                                    #haal de vragen op uit de tekst bestand 
     test_obj = {'specialisatie': 'SE', 'naam': 'Naam'}
