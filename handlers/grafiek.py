@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 
-def pi():
+def pi(data):
     # Pie chart, where the slices will be ordered and plotted counter-clockwise:
     labels = 'IAT', 'FICT', 'BDAM', 'SE'
-    sizes = [10, 30, 10, 50]
+    sizes = data
     explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
 
     fig1, ax1 = plt.subplots()
