@@ -203,6 +203,8 @@ def Instructies():
         text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, '3) Om het resultaat van de laatste speler te zien druk op "terug" en daarna op "mijn vorige resultaten".', (255, 255, 255), screen_w // 2 - 800, 600)
         text.draw(screen) 
         
+        
+               
 
         pygame.display.flip()
         mainClock.tick(30)
@@ -244,7 +246,7 @@ def toon_resultaten(username):
                 menu(username)
             if grafiek_knop.isOver(mouse_position):
                 toon_resultaten = False
-                grafiek.pi(sorteerhoed.resultaten_ophalen(username))
+                grafiek.pi()
                 
         screen.blit(spec_image, spec_image_rect)
 
@@ -277,13 +279,14 @@ def menu_vraag(username):
                     punten = list(btn.get_spec()[i].replace(',', ''))
                     for i in range(0,4):
                         totaal[i] += int(punten[i])
-                        if btn.isOver(pygame.mouse.get_pos()):
-                            count += 1
-                            pygame.event.wait()
-                            punten = list(btn.get_spec()[i].replace(',', ''))
-                            for i in range(0,4):
-                                teller[i] += int(punten[i])
-        
+                        
+                    if btn.isOver(pygame.mouse.get_pos()):
+                        count += 1
+                        pygame.event.wait()
+                        punten = list(btn.get_spec()[i].replace(',', ''))
+                        for i in range(0,4):
+                            teller[i] += int(punten[i])
+    
             if count == 12:
                     #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
                     #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
@@ -291,10 +294,8 @@ def menu_vraag(username):
                     #worden en de kans dus groter is dat die specialisatie de uitslag is.
                 percentage = []
                 for i in range(0,4):
-                    print(teller[i], totaal[i])
                     percentage.append(teller[i] / totaal[i])
                 print("IAT: " + str(percentage[0]) + "FICT: " + str(percentage[1]) + "SE: " + str(percentage[2]) + "BDam: " + str(percentage[3]))
-                # sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3]])
                 running = False
                 eind_vraag(username)
 
