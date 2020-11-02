@@ -286,11 +286,16 @@ def menu_vraag(username):
             if count == 16:
                 percentage = []
                 percentage2 = []
+                print(teller, totaal)
+                print(teller2, totaal2)
+                print()
                 for i in range(0,4):
                     percentage.append(teller[i] / totaal[i] * 100)
-                    percentage2.append(teller2[i] / 16 * 100)
+                    percentage2.append(totaal2[i])
 
                 honderd_procent = sorteerhoed.procenten(percentage)
+                print("totaal2 =" + str(percentage2))
+                print("procenten = "+ str(honderd_procent))
                 sorteerhoed.resultaten_opslaan([username, [honderd_procent[0], honderd_procent[1], honderd_procent[2], honderd_procent[3] ]])
                 
                 running = False
