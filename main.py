@@ -204,17 +204,25 @@ def Instructies():
 def toon_resultaten(username):
     resultaten = sorteerhoed.resultaten_ophalen(username)
 
-  
     toon_resultaten = True
 
     while toon_resultaten:
         screen.fill((39, 40, 34))
 
-        lijst_fotos = ["iat","fict","se","bdam"]
+        lijst_fotos = ["iat","fict","bdam", "se"]
+        specys = ["Interactie Technologie", "Forensisch ICT", "Business data Management","Software Engineering",]
         spec_image_badge = "assets/images/" + str(lijst_fotos[int(resultaten['specialisatie'])]) + ".png"
         spec_image = pygame.image.load(str(spec_image_badge))
         spec_image_rect = spec_image.get_rect()
-        spec_image_rect.x, spec_image_rect.y = screen_w // 2 - spec_image_rect.width // 2, 100
+        spec_image_rect.x, spec_image_rect.y = screen_w // 2 - spec_image_rect.width // 2, 125
+
+        text_A = "Bij jouw profiel past de specialisatie"
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 30), False, text_A, (221, 211, 147), screen_w // 2 - 300, 600)
+        text.draw(screen)  
+
+        text_B = str(specys[int(resultaten['specialisatie'])])
+        text = ui.Text(pygame.font.Font("assets/fonts/lunchds.ttf", 40), False, text_B, (255, 255, 255), screen_w // 2 - 225, 700)
+        text.draw(screen)  
 
         text = ui.Text(pygame.font.Font("assets/fonts/fantasy.ttf", 80), False, username, (221, 211, 147), screen_w // 2 - 125, 400)
         text.draw(screen)  
@@ -231,7 +239,7 @@ def toon_resultaten(username):
         mainmenu_knop = ui.Button((249, 44, 44), 50, 50, 80, 35, "Terug", 20, 0)
         mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
 
-        grafiek_knop = ui.Button((249, 44, 44), 200, 200, 150, 35, "Zie grafiek", 20, 0)
+        grafiek_knop = ui.Button((249, 44, 44), screen_w // 2 - 100, 800, 150, 35, "Zie grafiek", 20, 0)
         grafiek_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
 
         if pygame.mouse.get_pressed()[0]:
@@ -241,6 +249,7 @@ def toon_resultaten(username):
             if grafiek_knop.isOver(mouse_position):
                 toon_resultaten = False
                 grafiek.pi(resultaten)
+                exit()
                 
         screen.blit(spec_image, spec_image_rect)
 
