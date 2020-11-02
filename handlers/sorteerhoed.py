@@ -21,11 +21,12 @@ def resultaten_opslaan(data):
                         "se": str(data[3]),
                         "bdam": str(data[4])},
                         ignore_index = True)
-
     new_df.to_excel("assets/resultaten.xlsx", index=False)
 
-def resultaten_ophalen(user_name):                                    #haal de vragen op uit de tekst bestand 
+def resultaten_ophalen(username):     
+    print(username)
     return df
+    # return df['naam'][username]
 
 def main():
     print('sorteerhoed')

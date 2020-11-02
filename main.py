@@ -3,6 +3,7 @@ import handlers.ui as ui    #Importeer user interacties functies van een andere 
 import handlers.sorteerhoed as sorteerhoed
 import handlers.grafiek as grafiek
 
+
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_w, screen_h = pygame.display.get_surface().get_size()
 print(screen_h, screen_w)
@@ -19,9 +20,9 @@ def main():
     pygame.display.set_icon(pygame.image.load("assets/images/Sorting_hat.png"))
 
     # Music
-##    pygame.mixer.init()
-##    pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
-##    pygame.mixer.music.play(-1)
+    pygame.mixer.init()
+    pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
+    pygame.mixer.music.play(-1)
 
     # Fonts / text
     font_button = pygame.font.Font("assets/fonts/pixel2.ttf", 20)
@@ -36,15 +37,14 @@ def main():
         start_knop = ui.Button((0, 179, 60), screen_w // 2 - 200, 400, 320, 70, "Start", 20, 0)
         start_knop.draw(mouse, screen, font_button)
 
-        quit_knop = ui.Button((249, 44, 44), screen_w // 2 - 200, 500, 320, 70, "Stop", 20, 0)
-        quit_knop.draw(mouse, screen, font_button)
-
-        help_knop = ui.Button((0, 0, 0), screen_w // 2 - 200, 600, 320, 70, "Instructies", 20, 0)
+        help_knop = ui.Button((0, 0, 0), screen_w // 2 - 200, 500, 320, 70, "Instructies", 20, 0)
         help_knop.draw(mouse, screen, font_button)
 
-        hoe_werkt_het_knop = ui.Button((0, 0, 0), screen_w // 2 - 200, 700, 320, 70, "Applicatie Informatie", 20, 0)
+        hoe_werkt_het_knop = ui.Button((0, 0, 0), screen_w // 2 - 200, 600, 320, 70, "Applicatie Informatie", 20, 0)
         hoe_werkt_het_knop.draw(mouse, screen, font_button)
 
+        quit_knop = ui.Button((249, 44, 44), screen_w // 2 - 200, 700, 320, 70, "Stop", 20, 0)
+        quit_knop.draw(mouse, screen, font_button)
 
         # Key listerners
         for event in events:
@@ -95,10 +95,6 @@ def menu(username):
 
         quit_knop = ui.Button((249, 44, 44), screen_w // 2 - 200, 600, 320, 70, "Quit", 20, 0)
         quit_knop.draw(mouse_position, screen, font_button)
-
-        mainmenu_knop = ui.Button((255, 255, 255), 700, 150, 80, 35, "Hoe werkt het", 20, 0)
-        mainmenu_knop.draw(mouse_position, screen, pygame.font.Font("assets/fonts/pixel2.ttf", 20))
-
 
         # Key listerners
         for event in pygame.event.get():
@@ -208,7 +204,7 @@ def Instructies():
 # Pagina om de resultaten te bekijken
 def toon_resultaten(username):
     resultaten = sorteerhoed.resultaten_ophalen(username)
-
+    print(resultaten)
     toon_resultaten = True
     while toon_resultaten:
         screen.fill((39, 40, 34))
@@ -253,10 +249,8 @@ def toon_resultaten(username):
 def menu_vraag(username):
     count = 0
     running = True
-    teller = [0, 0, 0, 0]
-    teller2 = [0, 0, 0, 0]
-    totaal = [0, 0, 0, 0] 
-    totaal2 = [0, 0, 0, 0]
+    teller, teller2 = [0, 0, 0, 0], [0, 0, 0, 0]
+    totaal, totaal2 = [0, 0, 0, 0], [0, 0, 0, 0]
     
     for count, vraag in enumerate(vragenlijst):
         while running:
@@ -267,7 +261,6 @@ def menu_vraag(username):
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-
                     running = False
 
             # btns = ui.vraag_component( vragenlijst['vraag'][count], [vragenlijst['ant1'][count], vragenlijst['ant2'][count], vragenlijst['ant3'][count], vragenlijst['ant4'][count]] )
@@ -288,7 +281,6 @@ def menu_vraag(username):
                             teller[i] += int(punten[i])
                             teller2[i] += 1
 
-            
             #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
             #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
             #specialisatie. Dit om te voorkomen dat er in totaal meer punten aan één specialisatie toegekend
@@ -300,7 +292,7 @@ def menu_vraag(username):
                     percentage.append(teller[i] / totaal[i] * 100)
                     percentage2.append(teller2[i] / 16 * 100)
                 print("IAT: " + str(percentage[0]) + "FICT: " + str(percentage[1]) + "SE: " + str(percentage[2]) + "BDam: " + str(percentage[3]))
-                sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3]])
+                sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3] ])
                 running = False
                 eind_vraag(username)
 
@@ -313,8 +305,6 @@ def menu_vraag(username):
 
             if pygame.mouse.get_pressed()[0]:
                 if mainmenu_knop.isOver(mouse_position):
-                    state = [username, count]
-                    sla_op(state)
                     running = False
                     menu(username)
 
