@@ -19,9 +19,9 @@ def main():
     pygame.display.set_icon(pygame.image.load("assets/images/Sorting_hat.png"))
 
     # Music
-    pygame.mixer.init()
-    pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
-    pygame.mixer.music.play(-1)
+  #  pygame.mixer.init()
+   # pygame.mixer.music.load('assets\sounds\8bit_harrypotter_theme.mp3')
+    #pygame.mixer.music.play(-1)
 
     # Fonts / text
     font_button = pygame.font.Font("assets/fonts/pixel2.ttf", 20)
@@ -203,7 +203,6 @@ def Instructies():
 # Pagina om de resultaten te bekijken
 def toon_resultaten(username):
     resultaten = sorteerhoed.resultaten_ophalen(username)
-    print(resultaten)
     toon_resultaten = True
     while toon_resultaten:
         screen.fill((39, 40, 34))
@@ -237,7 +236,7 @@ def toon_resultaten(username):
                 menu(username)
             if grafiek_knop.isOver(mouse_position):
                 toon_resultaten = False
-                grafiek.pi()
+                grafiek.pi(resultaten)
                 
         screen.blit(spec_image, spec_image_rect)
 
@@ -290,8 +289,10 @@ def menu_vraag(username):
                 for i in range(0,4):
                     percentage.append(teller[i] / totaal[i] * 100)
                     percentage2.append(teller2[i] / 16 * 100)
-                print("IAT: " + str(percentage[0]) + "FICT: " + str(percentage[1]) + "SE: " + str(percentage[2]) + "BDam: " + str(percentage[3]))
-                sorteerhoed.resultaten_opslaan([username, percentage[0], percentage[1], percentage[2], percentage[3] ])
+
+                honderd_procent = sorteerhoed.procenten(percentage)
+                sorteerhoed.resultaten_opslaan([username, [honderd_procent[0], honderd_procent[1], honderd_procent[2], honderd_procent[3] ]])
+                
                 running = False
                 eind_vraag(username)
 
