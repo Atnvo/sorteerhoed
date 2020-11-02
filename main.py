@@ -203,12 +203,17 @@ def Instructies():
 # Pagina om de resultaten te bekijken
 def toon_resultaten(username):
     resultaten = sorteerhoed.resultaten_ophalen(username)
+
+    print(f"resultaten:    {resultaten}")
+    print(f"resultaten--a:    { resultaten['specialisatie'] }")
     toon_resultaten = True
+
     while toon_resultaten:
         screen.fill((39, 40, 34))
 
-        spec_image_badge = "assets/images/se.png"
-        spec_image = pygame.image.load(spec_image_badge)
+        lijst_fotos = ["iat","fict","se","bdam"]
+        spec_image_badge = "assets/images/" + str(lijst_fotos[int(resultaten['specialisatie'])]) + ".png"
+        spec_image = pygame.image.load(str(spec_image_badge))
         spec_image_rect = spec_image.get_rect()
         spec_image_rect.x, spec_image_rect.y = screen_w // 2 - spec_image_rect.width // 2, 100
 
