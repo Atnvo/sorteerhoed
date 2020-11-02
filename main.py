@@ -247,8 +247,8 @@ def toon_resultaten(username):
 def menu_vraag(username):
     count = 0
     running = True
-    teller, teller2 = [0, 0, 0, 0], [0, 0, 0, 0]
-    totaal, totaal2 = [0, 0, 0, 0], [0, 0, 0, 0]
+    teller = [0, 0, 0, 0]
+    totaal = [0, 0, 0, 0]
     
     for count, vraag in enumerate(vragenlijst):
         while running:
@@ -270,14 +270,11 @@ def menu_vraag(username):
                     punten = list(btn.get_spec()[i].replace(',', ''))
                     for i in range(0,4):
                         totaal[i] += int(punten[i])
-                        if int(punten[i]) == 3:
-                            totaal2[i] += 1
                     if btn.isOver(pygame.mouse.get_pos()):
                         pygame.event.wait()
                         count += 1
                         for i in range(0,4):
                             teller[i] += int(punten[i])
-                            teller2[i] += 1
 
             #Manier van uitrekenen: om iedere specialisatie evenveel kans te geven berekenen we het percentage door
             #het 'gekozen' puntenaantal per specialisatie te delen door het totale puntenaantal van die
@@ -285,17 +282,10 @@ def menu_vraag(username):
             #worden en de kans dus groter is dat die specialisatie de uitslag is.
             if count == 16:
                 percentage = []
-                percentage2 = []
-                print(teller, totaal)
-                print(teller2, totaal2)
-                print()
                 for i in range(0,4):
                     percentage.append(teller[i] / totaal[i] * 100)
-                    percentage2.append(totaal2[i])
 
                 honderd_procent = sorteerhoed.procenten(percentage)
-                print("totaal2 =" + str(percentage2))
-                print("procenten = "+ str(honderd_procent))
                 sorteerhoed.resultaten_opslaan([username, [honderd_procent[0], honderd_procent[1], honderd_procent[2], honderd_procent[3] ]])
                 
                 running = False

@@ -15,7 +15,6 @@ def vragen_ophalen():                                           #haal de vragen 
     return vragenlijst
         
 def resultaten_opslaan(data):
-    print('-------------------------------')
     procenten = data[1]
     spec = procenten.index(max(procenten))
     new_df = df.append({"naam": str(data[0]),
@@ -29,7 +28,7 @@ def resultaten_opslaan(data):
 
 def procenten(data):
     # bijna honderd procent heb. 0.3 
-    
+    # deel / bijna_honderd(geheel) * 100
     bijna_honderd = (data[0] + data[1] + data[2] + data[3])
     iat = data[0] / bijna_honderd * 100
     iat = int(iat)
@@ -42,9 +41,8 @@ def procenten(data):
    # fict = round(data[1] / (bijna_honderd * 100),2)
     #se = round(data[2] / (bijna_honderd / 100),2)
     #bdam = round(data[3] / (bijna_honderd / 100),2)
-    print(bijna_honderd)
     specialisaties_lijst = [iat , fict , se ,bdam]
-    print("Bijna honderd------------------" + str(bijna_honderd))
+    
     return specialisaties_lijst
     #honderd_procent = (int(procenten[0])) + int(procenten[1]) + int(procenten[2]) + int(procenten[3])
 
