@@ -3,7 +3,6 @@ import handlers.ui as ui    #Importeer user interacties functies van een andere 
 import handlers.sorteerhoed as sorteerhoed
 import handlers.grafiek as grafiek
 
-
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 screen_w, screen_h = pygame.display.get_surface().get_size()
 print(screen_h, screen_w)
