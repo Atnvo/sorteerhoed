@@ -204,8 +204,7 @@ def Instructies():
 def toon_resultaten(username):
     resultaten = sorteerhoed.resultaten_ophalen(username)
 
-    print(f"resultaten:    {resultaten}")
-    print(f"resultaten--a:    { resultaten['specialisatie'] }")
+  
     toon_resultaten = True
 
     while toon_resultaten:
